@@ -1,6 +1,8 @@
 package com.ai.training.service;
 
+import com.ai.training.dto.EmployeeDTO;
 import com.ai.training.model.Employee;
+import com.ai.training.model.EmployeeEntity;
 import com.ai.training.model.criteria.EmployeeSearchCriteria;
 
 import java.util.List;
@@ -24,4 +26,10 @@ public interface IEmployeeService {
     void delete(String employeeId);
 
     void softDelete(String employeeId,String userId);
+
+    EmployeeEntity findByIdNoJoin(String id);
+
+    EmployeeEntity findByIdAllJoin(String id);
+
+    EmployeeDTO findByIdNoJoinDTO(String id);
 }

@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "EMP_CONTACT_DETAILS")
-public class EmployeeContactDetails {
+public class EmployeeContactDetailsEntity {
 
     @Id
     @Column(name="ID")
@@ -26,7 +25,7 @@ public class EmployeeContactDetails {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMP_ID")
-    private Employee employee;
+    private EmployeeEntity employee;
 
     @Column(name="CONTACT_TYPE")
     private String contactType;

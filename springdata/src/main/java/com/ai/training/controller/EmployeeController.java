@@ -1,6 +1,8 @@
 package com.ai.training.controller;
 
+import com.ai.training.dto.EmployeeDTO;
 import com.ai.training.model.Employee;
+import com.ai.training.model.EmployeeEntity;
 import com.ai.training.model.criteria.EmployeeSearchCriteria;
 import com.ai.training.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -64,7 +64,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/{employeeId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> addEmployee(@PathVariable String employeeId){
+    public ResponseEntity<String> deleteEmployee(@PathVariable String employeeId){
         employeeService.delete(employeeId);
         return new ResponseEntity<String>("Successfully Deleted", HttpStatus.OK);
     }
@@ -75,6 +75,23 @@ public class EmployeeController {
         return new ResponseEntity<String>("Successfully Deleted", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/find-by-id-no-join/employee/{employeeId}", method = RequestMethod.GET)
+    public ResponseEntity<EmployeeEntity> findByIdNoJoin(@PathVariable String employeeId){
+        EmployeeEntity one = employeeService.findByIdNoJoin(employeeId);
+        return new ResponseEntity<EmployeeEntity>(one, HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/find-by-id-no-join-dto/employee/{employeeId}", method = RequestMethod.GET)
+    public ResponseEntity<EmployeeDTO> findByIdNoJoinDTO(@PathVariable String employeeId){
+        EmployeeDTO one = employeeService.findByIdNoJoinDTO(employeeId);
+        return new ResponseEntity<EmployeeDTO>(one, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/find-by-id-all-join/employee/{employeeId}", method = RequestMethod.GET)
+    public ResponseEntity<EmployeeEntity> findByIdAllJoin(@PathVariable String employeeId){
+        EmployeeEntity one = employeeService.findByIdAllJoin(employeeId);
+        return new ResponseEntity<EmployeeEntity>(one, HttpStatus.OK);
+    }
 
 }

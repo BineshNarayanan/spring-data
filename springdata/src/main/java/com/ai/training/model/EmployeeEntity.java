@@ -18,7 +18,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee implements Serializable {
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = "allJoins", attributeNodes = {
+                @NamedAttributeNode("contactDetails")
+        }),
+        @NamedEntityGraph(name = "noJoins")
+})
+public class EmployeeEntity implements Serializable {
 
     @Id
     @Column(name = "ID")
@@ -48,8 +54,8 @@ public class Employee implements Serializable {
     @Column(name = "UPDATE_BY")
     private String updateBy;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<EmployeeContactDetails> contactDetails;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<EmployeeContactDetailsEntity> contactDetails;
 
     @PrePersist
     public void preCreate(){
